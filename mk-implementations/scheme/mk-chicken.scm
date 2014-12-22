@@ -15,14 +15,14 @@
 ;;; All the e* must be the eigens created as part of a single eigen.  The reifier just
 ;;; abandons E, if it succeeds.  If there is no failure by then, there were no eigen
 ;;; violations.
+(import chicken scheme)
+(use extras)
 
 (define (list-sort x y) (sort y x))
 (define (exists p l)
   (if (null? l)
       #f
-      (if (p (car l))
-          #t
-          (exists p (cdr l)))))
+      (or (p (car l)) (exists p (cdr l)))))
 (define (find p l)
   (if (null? l)
       #f
